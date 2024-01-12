@@ -1,4 +1,4 @@
-﻿using Quiz.Domain.Common;
+using Quiz.Domain.Common;
 using Quiz.Domain.Errors;
 using Quiz.Domain.Primitives;
 
@@ -10,11 +10,12 @@ namespace Quiz.Domain.ValueObjects
         public const int MinLength = 8;
         public string Value { get; }
 
-        private Password(string value)        {
+        private Password(string value)
+        {
             Value = value;
         }
 
-        public static Result<Password> From(string password) 
+        public static Result<Password> From(string password)
         {
             if (string.IsNullOrEmpty(password))
                 return PasswordErrors.NullOrEmpty;
