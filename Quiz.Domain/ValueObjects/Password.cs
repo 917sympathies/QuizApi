@@ -14,7 +14,7 @@ namespace Quiz.Domain.ValueObjects
             Value = value;
         }
 
-        public static Result<Password> From(string password) 
+        public static Result<Password> From(string password)
         {
             if (string.IsNullOrEmpty(password))
                 return PasswordErrors.NullOrEmpty;
