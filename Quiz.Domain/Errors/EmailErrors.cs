@@ -1,14 +1,15 @@
 ﻿using Quiz.Domain.Common;
+using Quiz.Domain.ValueObjects;
 
 namespace Quiz.Domain.Errors
 {
     public static class EmailErrors
     {
-        public static Error NullOrEmptyEmail
-            => Error.Validation("Email.NullOrEmptyValue", "Email can't represent null or empty value");
+        public static Error NullOrEmpty
+            => SharedErrors.NullOrEmpty(nameof(Email));
 
-        public static Error InvalidEmail
-            => Error.Validation("Email.Invalid", "The provided email is not valid");
+        public static Error Invalid
+            => Error.Validation($"Email.{nameof(Invalid)}", "The provided email is not valid");
     }
 
 }
