@@ -16,10 +16,10 @@ namespace Quiz.Domain.ValueObjects
         public static Result<Email> Create(string email)
         {
             if (string.IsNullOrWhiteSpace(email))
-                return EmailErrors.NullOrEmptyEmail;
+                return EmailErrors.NullOrEmpty;
 
             if (!email.Contains('@') || !email.Contains('.'))
-                return EmailErrors.InvalidEmail;
+                return EmailErrors.Invalid;
 
             return new Email(email);
         }
