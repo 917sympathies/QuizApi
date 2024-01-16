@@ -12,6 +12,7 @@ namespace Quiz.Domain.Errors
 
         internal static Error InvalidLength(string parameter, int min, int max)
             => Error.Validation(
-                parameter + '.' + nameof(InvalidLength), 
+                parameter + '.' + nameof(InvalidLength),
                 $"Password length must be {min} to {max} characters long");
     }
+}
