@@ -12,4 +12,4 @@ namespace Quiz.Domain.Errors
            => SharedErrors.InvalidLength(nameof(Password), Password.MinLength, Password.MaxLength);
     }
 }
-}
+
