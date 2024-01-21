@@ -1,13 +1,14 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Quiz.Domain.Repositories;
+using Quiz.Infrastructure.Models;
 
 namespace Quiz.Infrastructure.Persistence;
 
 public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
 {
-    private readonly DbContext _context;
-    public RepositoryBase(DbContext context)
+    private readonly RepositoryContext _context;
+    public RepositoryBase(RepositoryContext context)
     {
         _context = context;
     }
