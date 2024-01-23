@@ -11,9 +11,27 @@ public class RepositoryContext : DbContext
     {
         
     }
-    
-    public DbSet<UserDto> Users { get; set; }
-    public DbSet<Game> Games { get; set; }
-    public DbSet<Question> Questions { get; set; }
-    public DbSet<QuestionPack> QuestionPacks { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<QuestionPack>()
+            .HasMany(qp => qp.Questions)
+            .WithOne()
+            .HasForeignKey(k => k.QuestionPackId);
+
+        modelBuilder.Entity<Question>()
+            .HasMany(q => q.Options)
+            .WithOne()
+            .HasForeignKey(k => k.QuestionId);
+        
+        // modelBuilder.Entity<Question>()
+        //     .HasOne(q => q.Answer)
+        //     .WithOne()
+        //     .HasForeignKey(k => k.)
+    }
+
+    public DbSet<UserDto> Users { get; init; }
+    public DbSet<Game> Games { get; init; }
+    public DbSet<Question> Questions { get; init; }
+    public DbSet<QuestionPack> QuestionPacks { get; init; }
 }

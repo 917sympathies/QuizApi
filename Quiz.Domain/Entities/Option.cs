@@ -2,6 +2,7 @@
 
 public class Option
 {
-    public int Id { get; set; }
-    public string Value { get; set; } = default!;
+    public int Id { get; init; }
+    public string Value { get; init; } = default!;
+    public Guid QuestionId { get; init; }
 }
