@@ -2,9 +2,9 @@
 
 public interface IRepositoryManager
 {
-    public IGameRepository Games { get; }
-    public IQuestionRepository Questions { get; }
-    public IQuestionPackRepository QuestionPacks { get; }
-    public IUserRepository Users { get; }
+    IGameRepository Games { get; }
+    IQuestionRepository Questions { get; }
+    IQuestionPackRepository QuestionPacks { get; }
+    IUserRepository Users { get; }
     Task SaveAsync();
 }

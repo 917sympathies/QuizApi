@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Quiz.Domain.Entities;
 using Quiz.Domain.Repositories;
+using Quiz.Infrastructure.Models;
 
 namespace Quiz.Infrastructure.Persistence;
 
 public class GameRepository : RepositoryBase<Game>, IGameRepository
 {
-    public GameRepository(DbContext context) : base(context)
+    public GameRepository(RepositoryContext context) : base(context)
     {
     }
 

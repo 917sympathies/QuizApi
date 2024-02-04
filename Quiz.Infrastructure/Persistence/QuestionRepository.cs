@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Quiz.Domain.Entities;
 using Quiz.Domain.Repositories;
+using Quiz.Infrastructure.Models;
 
 namespace Quiz.Infrastructure.Persistence;
 
 public class QuestionRepository : RepositoryBase<Question>, IQuestionRepository
 {
-    public QuestionRepository(DbContext context) : base(context)
+    public QuestionRepository(RepositoryContext context) : base(context)
     {
     }
 

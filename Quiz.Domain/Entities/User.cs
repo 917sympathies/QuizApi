@@ -9,9 +9,9 @@ public class User : Entity<Guid>
     public Username Username { get; private set; }
     public Email Email { get; private set; }
     public Password Password { get; private set; }
-    public ICollection<User> Friends { get; private set; }
+    public ICollection<User>? Friends { get; private set; }
 
-    private User(Guid id, Username username, Email email, Password password, ICollection<User> friends) : base(id)
+    private User(Guid id, Username username, Email email, Password password, ICollection<User>? friends) : base(id)
     {
         Username = username;
         Email = email;
@@ -19,7 +19,7 @@ public class User : Entity<Guid>
         Friends = friends;
     }
 
-    public static User Create(Guid id, Username username, Email email, Password password, ICollection<User> friends)
+    public static User Create(Guid id, Username username, Email email, Password password, ICollection<User>? friends)
     {
         //check for unique email 
 

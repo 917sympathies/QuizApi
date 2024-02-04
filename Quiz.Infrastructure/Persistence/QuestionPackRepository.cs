@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Quiz.Domain.Entities;
 using Quiz.Domain.Repositories;
+using Quiz.Infrastructure.Models;
 
 namespace Quiz.Infrastructure.Persistence;
 
 public class QuestionPackRepository : RepositoryBase<QuestionPack> , IQuestionPackRepository
 {
-    public QuestionPackRepository(DbContext context) : base(context)
+    public QuestionPackRepository(RepositoryContext context) : base(context)
     {
     }
 
@@ -16,7 +17,7 @@ public class QuestionPackRepository : RepositoryBase<QuestionPack> , IQuestionPa
 
     public Task UpdateQuestionPack(QuestionPack pack)=> UpdateAsync(pack);
 
-    public async Task<QuestionPack?> GetQuestionPackByIdAsync(Guid id, bool trackChanges) => await FindByCondition(qp => qp.Id.Equals(id), trackChanges).FirstOrDefaultAsync();
+    public async Task<QuestionPack?> GetQuestionPackByIdAsync(Guid id, bool trackChanges) => await FindByCondition(qp => qp.Id.Equals(id), trackChanges).Include(qp => qp.Questions).FirstOrDefaultAsync();
 
     public async Task<ICollection<QuestionPack>> GetAllQuestionPacksAsync() => await FindAll(false).ToListAsync();
     
