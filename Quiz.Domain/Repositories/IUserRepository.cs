@@ -10,5 +10,5 @@ public interface IUserRepository
     Task UpdateUser(UserDtoToDb user);
     Task<UserDtoToDb?> GetUserByIdAsync(Guid id, bool trackChanges);
     Task<UserDtoToDb?> GetUserByUsernameAsync(string username, bool trackChanges);
-    // Task<ICollection<User>?> GetUsersByGameAsync(Game game, bool trackChanges);
+    Task<IEnumerable<UserDtoToDb>> GetUsersByUsernamesAsync(IEnumerable<string> usernames);
 }

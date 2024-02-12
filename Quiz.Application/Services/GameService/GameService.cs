@@ -1,4 +1,6 @@
-﻿using Quiz.Domain.Entities;
+﻿using Quiz.Domain.DTO;
+using Quiz.Domain.Entities;
+using Quiz.Domain.Enumerations;
 using Quiz.Domain.Repositories;
 
 namespace Quiz.Application.Services.GameService;
@@ -11,9 +13,23 @@ public class GameService : IGameService
         _repositoryManager = repositoryManager;
     }
 
-    public Task CreateAsync(Game game)
+    public async Task<Game> CreateAsync(IEnumerable<string> usernames, Guid questionPackId)
     {
-        return _repositoryManager.Games.CreateGame(game);
+        var players = new List<UserDtoToDb>();
+        players.AddRange(await _repositoryManager.Users.GetUsersByUsernamesAsync(usernames));
+        var questionPack = await _repositoryManager.QuestionPacks.GetQuestionPackByIdAsync(questionPackId, false);
+        var game = new Game()
+        {
+            Status = GameStatus.Ongoing,
+            Visibility = GameVisibility.Public,
+            Players = players,
+            QuestionPackId = questionPack.Id,
+            Results = null
+        };
+        await _repositoryManager.Games.CreateGame(game);
+        await _repositoryManager.SaveAsync();
+        
+        return game;
     }
 
     public Task DeleteAsync(Game game)
@@ -29,5 +45,35 @@ public class GameService : IGameService
     public Task<Game?> GetByIdAsync(Guid id)
     {
         return _repositoryManager.Games.GetGameByIdAsync(id, false);
+    }
+
+    public async Task<Game?> EndGame(Guid gameId, GameResultDto result)
+    {
+        var game = await _repositoryManager.Games.GetGameByIdAsync(gameId, false);
+        if (game == null)
+        {
+            return null;
+        }
+
+        if (result.PlayersResults.Count == 0)
+        {
+            return null;
+        }
+
+        foreach (var res in result.PlayersResults)
+        {
+            var player = await _repositoryManager.Users.GetUserByUsernameAsync(res.Username, false);
+            
+            if (player == null) return null;
+            
+            game.Results.Add(new GameResult()
+            {
+                PlayerId = player.Id,
+                Points = res.Points
+            });
+        }
+
+        await _repositoryManager.SaveAsync();
+        return game;
     }
 }

@@ -28,6 +28,10 @@ public class RepositoryContext : DbContext
             .HasMany(u => u.Friends)
             .WithMany();
 
+        modelBuilder.Entity<Game>()
+            .HasMany(g => g.Players)
+            .WithMany();
+
         // modelBuilder.Entity<Question>()
         //     .HasOne(q => q.Answer)
         //     .WithOne()

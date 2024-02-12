@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Quiz.Application.Services.GameService;
 using Quiz.Application.Services.QuestionPackService;
 using Quiz.Application.Services.UserService;
 using Quiz.Domain.Entities;
@@ -21,6 +22,7 @@ public static class DependencyInjection
         services.AddScoped<IRepositoryManager, RepositoryManager>();
         services.AddScoped<IQuestionPackService, QuestionPackService>();
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IGameService, GameService>();
         return services;
     }
 }
