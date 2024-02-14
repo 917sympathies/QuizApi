@@ -27,7 +27,7 @@ namespace Quiz.Api.Controllers
             return Ok(await _questionPackService.GetQuestionPackByIdAsync(id));
         }
 
-        [HttpPost("add")]
+        [HttpPost]
         public async Task<IActionResult> AddQuestionPack(QuestionPack questionPack)
         {
             return Ok(); // add logic in service

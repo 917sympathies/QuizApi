@@ -32,14 +32,13 @@ public class RepositoryContext : DbContext
             .HasMany(g => g.Players)
             .WithMany();
 
-        // modelBuilder.Entity<Question>()
-        //     .HasOne(q => q.Answer)
-        //     .WithOne()
-        //     .HasForeignKey(k => k.)
+        modelBuilder.Entity<Question>()
+            .HasMany(q => q.Options);
     }
 
     public DbSet<UserDtoToDb> Users { get; init; }
     public DbSet<Game> Games { get; init; }
     public DbSet<Question> Questions { get; init; }
     public DbSet<QuestionPack> QuestionPacks { get; init; }
+    public DbSet<Option> Options { get; init; }
 }

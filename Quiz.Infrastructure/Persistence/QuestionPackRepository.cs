@@ -17,7 +17,7 @@ public class QuestionPackRepository : RepositoryBase<QuestionPack> , IQuestionPa
 
     public Task UpdateQuestionPack(QuestionPack pack)=> UpdateAsync(pack);
 
-    public async Task<QuestionPack?> GetQuestionPackByIdAsync(Guid id, bool trackChanges) => await FindByCondition(qp => qp.Id.Equals(id), trackChanges).Include(qp => qp.Questions).FirstOrDefaultAsync();
+    public async Task<QuestionPack?> GetQuestionPackByIdAsync(Guid id, bool trackChanges) => await FindByCondition(qp => qp.Id.Equals(id), trackChanges).Include(qp => qp.Questions).ThenInclude(w => w.Options).FirstOrDefaultAsync();
 
     public async Task<ICollection<QuestionPack>> GetAllQuestionPacksAsync() => await FindAll(false).ToListAsync();
     
