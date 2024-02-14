@@ -13,11 +13,15 @@ public class GameService : IGameService
         _repositoryManager = repositoryManager;
     }
 
-    public async Task<Game> CreateAsync(IEnumerable<string> usernames, Guid questionPackId)
+    public async Task<Game?> CreateAsync(IEnumerable<string> usernames, Guid questionPackId)
     {
-        var players = new List<UserDtoToDb>();
-        players.AddRange(await _repositoryManager.Users.GetUsersByUsernamesAsync(usernames));
+        var players = new List<UserDtoToDb>(await _repositoryManager.Users.GetUsersByUsernamesAsync(usernames));
+        if (players.Count == 0) return null;
+        
+        
         var questionPack = await _repositoryManager.QuestionPacks.GetQuestionPackByIdAsync(questionPackId, false);
+        if (questionPack == null) return null;
+        
         var game = new Game()
         {
             Status = GameStatus.Ongoing,

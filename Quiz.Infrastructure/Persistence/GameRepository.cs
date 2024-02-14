@@ -17,7 +17,7 @@ public class GameRepository : RepositoryBase<Game>, IGameRepository
 
     public async Task UpdateGame(Game game) => await UpdateAsync(game);
 
-    public async Task<Game?> GetGameByIdAsync(Guid id, bool trackChanges) => await FindByCondition(g => g.Id.Equals(id), trackChanges).FirstOrDefaultAsync();
+    public async Task<Game?> GetGameByIdAsync(Guid id, bool trackChanges) => await FindByCondition(g => g.Id.Equals(id), trackChanges).Include(w => w.Players).FirstOrDefaultAsync();
 
     
 }

@@ -6,7 +6,7 @@ namespace Quiz.Application.Services.GameService;
 
 public interface IGameService
 {
-    Task<Game> CreateAsync(IEnumerable<string> usernames, Guid questionPackId);
+    Task<Game?> CreateAsync(IEnumerable<string> usernames, Guid questionPackId);
     Task DeleteAsync(Game game);
     Task UpdateAsync(Game game);
     Task<Game?> GetByIdAsync(Guid id);

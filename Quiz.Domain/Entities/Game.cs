@@ -8,7 +8,7 @@ public class Game
     public Guid Id { get; init; }
     public GameStatus Status { get; init; }
     public GameVisibility Visibility { get; init; }
-    public ICollection<UserDtoToDb> Players { get; init; } = default!;
+    public ICollection<UserDtoToDb> Players { get; set; } = default!;
     public Guid QuestionPackId { get; init; }
     public ICollection<GameResult> Results { get; init; } = default!;
 }

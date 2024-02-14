@@ -20,18 +20,26 @@ namespace Quiz.Api.Controllers
         {
             _gameService = gameService;
         }
+
+        [HttpGet("{id:guid}")]
+        public async Task<IActionResult> GetGameById(Guid id)
+        {
+            var response = await _gameService.GetByIdAsync(id);
+            return response == null ? BadRequest() : Ok(response);
+        }
         
         [HttpPost]
-        public async Task<Game> CreateGame(IEnumerable<string> usernames, Guid questionPackId)
+        public async Task<IActionResult> CreateGame(IEnumerable<string> usernames, Guid questionPackId)
         {
-            return await _gameService.CreateAsync(usernames, questionPackId);
+            var response = await _gameService.CreateAsync(usernames, questionPackId);
+            return response == null ? BadRequest() : Ok(response);
         }
 
         [HttpPost("{id:guid}")]
         public async Task<IActionResult> EndGame(Guid id, [FromBody]GameResultDto result)
         {
             var response = await _gameService.EndGame(id, result);
-            return response == null? BadRequest() : Ok();
+            return response == null ? BadRequest() : Ok();
         }
         
         
